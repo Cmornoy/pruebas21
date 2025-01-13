@@ -47,9 +47,126 @@
     </div>
 
     <div class="construction-container" id="constructionPage" style="display: none;">
-        <h1>Página en Construcción</h1>
-        <img src="https://via.placeholder.com/400x300?text=Bob+el+Constructor" alt="Bob el Constructor">
-        <p>Estamos trabajando para ti. ¡Vuelve pronto!</p>
+        <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de Repuestos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Búsqueda de Repuestos</h1>
+        <input type="text" id="searchBar" placeholder="Buscar repuestos...">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Repuesto</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="repuestosTable">
+                <tr>
+                    <td>001</td>
+                    <td>Filtro de Aire</td>
+                    <td>Motores</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Compresor</td>
+                    <td>Refrigeración</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Termostato</td>
+                    <td>Calefacción</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td>Bomba de Agua</td>
+                    <td>Motores</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>005</td>
+                    <td>Condensador</td>
+                    <td>Refrigeración</td>
+                    <td>12</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const searchBar = document.getElementById('searchBar');
+        const repuestosTable = document.getElementById('repuestosTable');
+        const rows = repuestosTable.getElementsByTagName('tr');
+
+        searchBar.addEventListener('input', function () {
+            const filter = searchBar.value.toLowerCase();
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cellContent = cells[j].textContent || cells[j].innerText;
+                    if (cellContent.toLowerCase().includes(filter)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = match ? '' : 'none';
+            }
+        });
     </div>
 
     <script>
