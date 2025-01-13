@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Mundo</title>
+    <title>Juego de Rompecabezas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,12 +14,105 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        h1 {
-            color: #333;
+        #puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+        }
+        .piece {
+            width: 100px;
+            height: 100px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .empty {
+            background-color: #cccccc;
+            cursor: default;
+        }
+        #reset {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #reset:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>HDennis pendejo Niggaaaaaaaaaaaa </h1>
+    <div id="puzzle-container"></div>
+    <button id="reset">Reiniciar</button>
+
+    <script>
+        const puzzleContainer = document.getElementById('puzzle-container');
+        const resetButton = document.getElementById('reset');
+        let puzzle = [];
+        const size = 3; // Tamaño del rompecabezas (3x3)
+
+        function createPuzzle() {
+            puzzle = [...Array(size * size).keys()]; // Genera números del 0 al 8
+            puzzle.sort(() => Math.random() - 0.5); // Mezcla las piezas
+        }
+
+        function renderPuzzle() {
+            puzzleContainer.innerHTML = '';
+            puzzle.forEach((value, index) => {
+                const piece = document.createElement('div');
+                piece.classList.add('piece');
+                if (value === 0) {
+                    piece.classList.add('empty');
+                } else {
+                    piece.textContent = value;
+                    piece.addEventListener('click', () => movePiece(index));
+                }
+                puzzleContainer.appendChild(piece);
+            });
+        }
+
+        function movePiece(index) {
+            const emptyIndex = puzzle.indexOf(0);
+            const validMoves = [
+                emptyIndex - size, // Arriba
+                emptyIndex + size, // Abajo
+                emptyIndex - 1,    // Izquierda
+                emptyIndex + 1     // Derecha
+            ];
+
+            // Validar movimiento
+            if (validMoves.includes(index)) {
+                // Intercambiar piezas
+                [puzzle[index], puzzle[emptyIndex]] = [puzzle[emptyIndex], puzzle[index]];
+                renderPuzzle();
+                checkWin();
+            }
+        }
+
+        function checkWin() {
+            if (puzzle.every((value, index) => value === index)) {
+                setTimeout(() => alert('¡Felicidades, has resuelto el rompecabezas!'), 100);
+            }
+        }
+
+        resetButton.addEventListener('click', () => {
+            createPuzzle();
+            renderPuzzle();
+        });
+
+        // Inicialización del juego
+        createPuzzle();
+        renderPuzzle();
+    </script>
 </body>
 </html>
