@@ -46,11 +46,53 @@
         </form>
     </div>
 
-    <div class="construction-container" id="constructionPage" style="display: none;">
-        <h1>Página en Construcción</h1>
-        <img src="https://via.placeholder.com/400x300?text=Bob+el+Constructor" alt="Bob el Constructor">
-        <p>Estamos trabajando para ti. ¡Vuelve pronto!</p>
+        <div class="container">
+        <h1>Búsqueda de Repuestos</h1>
+        <input type="text" id="searchBar" placeholder="Buscar repuestos...">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Repuesto</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="repuestosTable">
+                <tr>
+                    <td>001</td>
+                    <td>Filtro de Aire</td>
+                    <td>Motores</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Compresor</td>
+                    <td>Refrigeración</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Termostato</td>
+                    <td>Calefacción</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td>Bomba de Agua</td>
+                    <td>Motores</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>005</td>
+                    <td>Condensador</td>
+                    <td>Refrigeración</td>
+                    <td>12</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
 
     <script>
         function validarCredenciales() {
