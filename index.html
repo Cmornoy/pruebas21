@@ -1,99 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snake Game</title>
-<style>
-    canvas {
-        border: 1px solid black;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .login-container button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-<canvas id="gameCanvas" width="400" height="400"></canvas>
-<script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p class="error" id="errorMessage" style="display: none;">Usuario o contraseña incorrectos</p>
+    </div>
 
-    const snakeSize = 10;
-    let snake = [{x: 200, y: 200}];
-    let food = {x: Math.floor(Math.random() * canvas.width / snakeSize) * snakeSize, y: Math.floor(Math.random() * canvas.height / snakeSize) * snakeSize};
-    let dx = snakeSize;
-    let dy = 0;
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
 
-    function drawSnake() {
-        ctx.fillStyle = "green";
-        snake.forEach(segment => {
-            ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);            
-        });
-    }
+        // Credenciales correctas
+        const CORRECT_USER = "admin";
+        const CORRECT_PASS = "12345";
 
-    function drawFood() {
-        ctx.fillStyle = "red";
-        ctx.fillRect(food.x, food.y, snakeSize, snakeSize);
-    }
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
-    function moveSnake() {
-        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-        snake.unshift(head);
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        if (head.x === food.x && head.y === food.y) {
-            food = {x: Math.floor(Math.random() * canvas.width / snakeSize) * snakeSize, y: Math.floor(Math.random() * canvas.height / snakeSize) * snakeSize};
-        } else {
-            snake.pop();
-        }
-    }
-
-    function checkCollision() {
-        if (snake[0].x < 0 || snake[0].x >= canvas.width || snake[0].y < 0 || snake[0].y >= canvas.height) {
-            gameOver();
-        }
-
-        for (let i = 1; i < snake.length; i++) {
-            if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
-                gameOver();
+            if (username === CORRECT_USER && password === CORRECT_PASS) {
+                // Redirigir a otra página si las credenciales son correctas
+                window.location.href = "pagina-secreta.html";
+            } else {
+                // Mostrar mensaje de error
+                errorMessage.style.display = "block";
             }
-        }
-    }
-
-    function gameOver() {
-        alert("Game Over!");
-        snake = [{x: 200, y: 200}];
-        food = {x: Math.floor(Math.random() * canvas.width / snakeSize) * snakeSize, y: Math.floor(Math.random() * canvas.height / snakeSize) * snakeSize};
-        dx = snakeSize;
-        dy = 0;
-    }
-
-    function update() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawSnake();
-        drawFood();
-        moveSnake();
-        checkCollision();
-    }
-
-    function keyDownHandler(event) {
-        const key = event.key;
-        if (key === "ArrowLeft" && dx === 0) {
-            dx = -snakeSize;
-            dy = 0;
-        } else if (key === "ArrowRight" && dx === 0) {
-            dx = snakeSize;
-            dy = 0;
-        } else if (key === "ArrowUp" && dy === 0) {
-            dx = 0;
-            dy = -snakeSize;
-        } else if (key === "ArrowDown" && dy === 0) {
-            dx = 0;
-            dy = snakeSize;
-        }
-    }
-
-    document.addEventListener("keydown", keyDownHandler);
-
-    setInterval(update, 100);
-</script>
+        });
+    </script>
 </body>
 </html>
