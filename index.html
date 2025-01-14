@@ -1,112 +1,66 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
+    <title>Pantalla de Inicio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
         }
         .login-container {
-            margin-top: 100px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        .login-container input {
+        input {
             display: block;
-            margin: 10px auto;
+            width: 100%;
+            margin: 10px 0;
             padding: 10px;
-            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .button {
-            background-color: #4CAF50;
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-            padding: 10px 20px;
         }
-        .button:hover {
-            background-color: #45a049;
-        }
-        .construction-container {
-            margin-top: 50px;
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h1>Inicio de Sesión</h1>
-        <form id="loginForm" onsubmit="return validarCredenciales()">
-            <input type="text" id="username" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit" class="button">Iniciar Sesión</button>
-        </form>
-    </div>
-
-    <div class="construction-container" id="constructionPage" style="display: none;">
-        <h1>Búsqueda de Repuestos</h1>
-        <input type="text" id="searchBar" placeholder="Buscar repuestos...">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre del Repuesto</th>
-                    <th>Categoría</th>
-                    <th>Stock</th>
-                </tr>
-            </thead>
-            <tbody id="repuestosTable">
-                <tr>
-                    <td>001</td>
-                    <td>Filtro de Aire</td>
-                    <td>Motores</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Compresor</td>
-                    <td>Refrigeración</td>
-                    <td>8</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>Termostato</td>
-                    <td>Calefacción</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>004</td>
-                    <td>Bomba de Agua</td>
-                    <td>Motores</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>005</td>
-                    <td>Condensador</td>
-                    <td>Refrigeración</td>
-                    <td>12</td>
-                </tr>
-            </tbody>
-        </table>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Iniciar Sesión</button>
     </div>
 
     <script>
-        function validarCredenciales() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-            // Validación básica
+            // Validación simple de usuario y contraseña
             if (username === "admin" && password === "1234") {
-                // Oculta el formulario de login y muestra la página en construcción
-                document.querySelector('.login-container').style.display = 'none';
-                document.getElementById('constructionPage').style.display = 'block';
+                window.location.href = "menu.html"; // Redirigir a la pantalla del menú
             } else {
-                alert('Usuario o contraseña incorrectos.');
+                alert("Usuario o contraseña incorrectos");
             }
-            return false; // Evita que se recargue la página
         }
     </script>
 </body>
